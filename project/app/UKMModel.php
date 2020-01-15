@@ -15,7 +15,8 @@ class UKMModel extends Model
 
     public function getAllDataUKM(Request $request)
     {
-        $data = DB::table('list_ukm')->orderby('nama_ukm','asc');
+        $data = DB::table('list_ukm')->join('users','list_ukm.id_user','users.id')
+        ->orderby('nama_ukm','asc');
 
             if($request->get('search')!=null){
                 

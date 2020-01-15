@@ -44,6 +44,7 @@
                                         <th scope="col">{{ __('No.') }}</th>
                                         <th scope="col">{{ __('ID UKM') }}</th>
                                         <th scope="col">{{ __('Nama UKM') }}</th>
+                                        <th scope="col">{{ __('Nama Pemilik') }}</th>
                                         <th scope="col">{{ __('Alamat') }}</th>
                                         <th scope="col">{{ __('No. Telp') }}</th>
                                         <th scope="col">{{ __('Website') }}</th>
@@ -62,6 +63,7 @@
                                             <td>{{ ++$i }}</td>
                                             <td>{{ $data->id_ukm }}</td>
                                             <td>{{ $data->nama_ukm }}</td>
+                                            <td>{{ $data->name }}</td>
                                             <td>{{ $data->alamat }}</td>
                                             <td>{{ $data->no_telp }}</td>
                                             <td>{{ $data->website }}</td>

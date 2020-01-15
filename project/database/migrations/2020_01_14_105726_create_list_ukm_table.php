@@ -15,6 +15,7 @@ class CreateListUKMTable extends Migration
     {
         Schema::create('list_ukm', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('id_user');
             $table->string('id_ukm')->unique();
             $table->string('nama_ukm');
             $table->string('alamat');

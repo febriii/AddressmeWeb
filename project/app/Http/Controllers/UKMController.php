@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash; // manggil fungsi HASH
 use App\UKMModel; // panggil nama model dari controller ini
+use App\PemilikModel;
 use DB; // manggil fungsi explicit DB
 
 class UKMController extends Controller
@@ -22,7 +23,6 @@ class UKMController extends Controller
 
     public function index(Request $request)
     {
-
         $dataUKM = $this->UKMModel->getAllDataUKM($request);
 
         return view('list-ukm.index', compact('dataUKM'));
@@ -30,7 +30,9 @@ class UKMController extends Controller
 
     public function create()
     {
-        return view('list-ukm.create');
+        $namaPemilik = PemilikModel::select('id','name')->where('status','1')->get();
+
+        return view('list-ukm.create', compact('namaPemilik'));
     }
 
     public function store(Request $request)
@@ -45,6 +47,7 @@ class UKMController extends Controller
         $dataUKM->lat = $request->lat;
         $dataUKM->lng = $request->lng;
         $dataUKM->gambar_ukm = $request->gambar_ukm;
+        $dataUKM->id_user = $request->id_pemilik;
         $dataUKM->save();
         
         return redirect()->route('list-ukm.index')->withStatus(__('Data berhasil ditambahkan!'));
@@ -76,6 +79,7 @@ class UKMController extends Controller
         $dataUKM->lat = $request->lat;
         $dataUKM->lng = $request->lng;
         $dataUKM->gambar_ukm = $request->gambar_ukm;
+        $dataUKM->id_user = $request->id_pemilik;
         $dataUKM->save();
 
         return redirect()->route('list-ukm.index')->withStatus(__('Data berhasil diedit!'));
@@ -84,7 +88,7 @@ class UKMController extends Controller
 
     public function destroy(User  $user)
     {
-        
+
     }
 
     public function autoCorrectNumber($nohp)

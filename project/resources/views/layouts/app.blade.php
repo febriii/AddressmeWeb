@@ -17,6 +17,12 @@
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+        <!-- Google Map -->
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzYzyGAR3mvDJeIRquMhAJ71AbhfS8_zg"></script>
+
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
