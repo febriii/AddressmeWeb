@@ -10,17 +10,17 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-6">
-                                <h3 class="mb-0">{{ __('Admin') }}</h3>
+                                <h3 class="mb-0">{{ __('Pemilik UKM') }}</h3>
                             </div>
                             <div class="col-6 text-right">
-                                <a href="{{ route('user.create') }}" class="btn btn-sm btn-primary">{{ __('Tambah Admin') }}</a>
+                                <a href="{{ route('pemilik.create') }}" class="btn btn-sm btn-primary">{{ __('Tambah Data') }}</a>
                             </div>
                         </div>
                     </div>
                     
                     {{-- SEARCH FORM --}}
                     <div class="col-12" style="margin-bottom:10px;">
-                        <form action="{{route('user.index')}}" method="GET" autocomplete="off">
+                        <form action="{{route('pemilik.index')}}" method="GET" autocomplete="off">
                             <input type="text" minlength="3" name="search" class="form-control" placeholder="Search by name..">
                         </form>
                     </div>
@@ -64,19 +64,15 @@
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        @if ($user->id != auth()->id())
-                                                            <form action="{{ route('user.destroy', $user->id) }}" method="post">
-                                                                @csrf
-                                                                @method('delete')
-                                                                
-                                                                <a class="dropdown-item" href="{{ route('user.edit', $user->id) }}">{{ __('Edit') }}</a>
-                                                                <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this user?") }}') ? this.parentElement.submit() : ''">
-                                                                    {{ __('Delete') }}
-                                                                </button>
-                                                            </form>    
-                                                        @else
-                                                            <a class="dropdown-item" href="{{ route('profile.edit') }}">{{ __('Edit') }}</a>
-                                                        @endif
+                                                        <form action="{{ route('pemilik.destroy', $user->id) }}" method="post">
+                                                            @csrf
+                                                            @method('delete')
+                                                            
+                                                            <a class="dropdown-item" href="{{ route('pemilik.edit', $user->id) }}">{{ __('Edit') }}</a>
+                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this user?") }}') ? this.parentElement.submit() : ''">
+                                                                {{ __('Delete') }}
+                                                            </button>
+                                                        </form>    
                                                     </div>
                                                 </div>
                                             </td>

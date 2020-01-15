@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('user.update', $user) }}" autocomplete="off">
+                        <form method="post" action="{{ route('user.update', $user->id) }}" autocomplete="off">
                             @csrf
                             @method('put')
 
@@ -31,6 +31,36 @@
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('username') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label">{{ __('Username') }}</label>
+                                    <input class="form-control form-control-alternative{{ $errors->has('username') ? ' is-invalid' : '' }}" placeholder="{{ __('Username') }}" type="text" name="username" value="{{ old('username', $user->username) }}" required autofocus>
+                                    
+                                    @if ($errors->has('username'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('username') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('alamat') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label">{{ __('Alamat') }}</label>
+                                    <input class="form-control form-control-alternative{{ $errors->has('alamat') ? ' is-invalid' : '' }}" placeholder="{{ __('Alamat') }}" type="text" name="alamat" value="{{ old('alamat', $user->alamat) }}" required autofocus>
+                                    
+                                    @if ($errors->has('alamat'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('alamat') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('no_telp') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label">{{ __('Nomor Telepon') }}</label>
+                                    <input class="form-control form-control-alternative{{ $errors->has('no_telp') ? ' is-invalid' : '' }}" placeholder="{{ __('Nomor Telepon') }}" type="number" name="no_telp" value="{{ old('no_telp', $user->no_telp) }}" required autofocus>
+                                    
+                                    @if ($errors->has('no_telp'))
+                                        <span class="invalid-feedback" style="display: block;" role="alert">
+                                            <strong>{{ $errors->first('no_telp') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -60,7 +90,7 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
+                                    <button type="submit" class="btn btn-success mt-4">{{ __('Ubah Data') }}</button>
                                 </div>
                             </div>
                         </form>

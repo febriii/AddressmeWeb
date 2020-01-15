@@ -8,14 +8,14 @@ use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
-class UserModel extends Model
+class PemilikModel extends Model
 {
     protected $table = 'users';
     protected $fillable = ['id','name','email','alamat','no_telp','status','username'];
 
-    public function getAllDataAdmin(Request $request)
+    public function getAllDataPemilik(Request $request)
     {
-        $data = DB::table('users')->orderby('name','asc')->where('status','2');
+        $data = DB::table('users')->orderby('name','asc')->where('status','1');
 
             if($request->get('search')!=null){
                 

@@ -111,7 +111,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.index') }}">
+                                <a class="nav-link" href="{{ route('pemilik.index') }}">
                                     {{ __('Data Pemilik') }}
                                 </a>
                             </li>

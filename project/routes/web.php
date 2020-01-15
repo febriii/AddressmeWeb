@@ -43,7 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	// ROUTE ADMIN
 	Route::resource('user', 'UserController', ['except' => ['show']]);
-	Route::resource('list-ukm','UKMController');
+	Route::resource('list-ukm', 'UKMController');
+	Route::resource('pemilik', 'PemilikController');
 
 	// ROUTE PEMILIK
 

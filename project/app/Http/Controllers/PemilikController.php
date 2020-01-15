@@ -6,31 +6,31 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
-use App\UserModel;
+use App\PemilikModel;
 use DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class UserController extends Controller
+class PemilikController extends Controller
 {
-    private $UserModel;
+    private $PemilikModel;
 
-    public function __construct(UserModel $UserModel)
+    public function __construct(PemilikModel $PemilikModel)
     {
-        $this->UserModel = $UserModel;
+        $this->PemilikModel = $PemilikModel;
         $this->middleware('isAdmin');
     }
 
     public function index(Request $request)
     {
-        $users = $this->UserModel->getAllDataAdmin($request);
+        $users = $this->PemilikModel->getAllDataPemilik($request);
         
-        return view('users.index', compact('users'));
+        return view('list-pemilik.index', compact('users'));
     }
 
     public function create()
     {
-        return view('users.create');
+        return view('list-pemilik.create');
     }
     
     public function store(Request $request)
@@ -50,32 +50,32 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ], [], $attributes);
 
-        $dataAdmin = new UserModel();
+        $dataAdmin = new PemilikModel();
         $dataAdmin->name = $request->name;
         $dataAdmin->username = $request->username;
         $dataAdmin->email = $request->email;
         $dataAdmin->password = Hash::make($request->password);
         $dataAdmin->alamat = $request->alamat;
         $dataAdmin->no_telp = $request->no_telp;
-        $dataAdmin->status = 2;
+        $dataAdmin->status = 1;
 
         $dataAdmin->save();
         
-        return redirect()->route('user.index')->withStatus(__('Data berhasil ditambahkan!'));
+        return redirect()->route('pemilik.index')->withStatus(__('Data berhasil ditambahkan!'));
     }
 
     public function edit($id)
     {
-        $user = UserModel::where('id',$id)->where('status','2')->first();
+        $user = PemilikModel::where('id',$id)->where('status','1')->first();
         $tempID = auth()->user()->id;
 
         if($user == null)
         {
-            return redirect()->route('user.index');
+            return redirect()->route('pemilik.index');
         }
         else
         {
-            return view('users.edit', compact('user'));
+            return view('list-pemilik.edit', compact('user'));
         }
     }
 
@@ -95,24 +95,24 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ], [], $attributes);
 
-        $dataAdmin = UserModel::where('id',$id)->first();
+        $dataAdmin = PemilikModel::where('id',$id)->first();
         $dataAdmin->name = $request->name;
         $dataAdmin->username = $request->username;
         $dataAdmin->email = $request->email;
         $dataAdmin->password = Hash::make($request->password);
         $dataAdmin->alamat = $request->alamat;
         $dataAdmin->no_telp = $request->no_telp;
-        $dataAdmin->status = 2;
+        $dataAdmin->status = 1;
 
         $dataAdmin->save();
 
-        return redirect()->route('user.index')->withStatus(__('Data berhasil diperbaharui!'));
+        return redirect()->route('pemilik.index')->withStatus(__('Data berhasil diperbaharui!'));
     }
 
     public function destroy(User  $user)
     {
         $user->delete();
 
-        return redirect()->route('user.index')->withStatus(__('User successfully deleted.'));
+        return redirect()->route('pemilik.index')->withStatus(__('User successfully deleted.'));
     }
 }
