@@ -47,7 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('pemilik', 'PemilikController');
 
 	// ROUTE PEMILIK
-
+	// Route::resource('pemilik','')
 
 });
 

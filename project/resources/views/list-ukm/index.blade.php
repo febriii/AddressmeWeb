@@ -10,10 +10,10 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-6">
-                                <h3 class="mb-0">{{ __('Data UKM') }}</h3>
+                                <h3 class="mb-0">{{ __('Daftar UKM') }}</h3>
                             </div>
                             <div class="col-6 text-right">
-                                <a href="{{ route('list-ukm.create') }}" class="btn btn-sm btn-primary">{{ __('Tambah UKM') }}</a>
+                                <a href="{{ route('list-ukm.create') }}" class="btn btn-sm btn-primary">{{ __('Tambah Data') }}</a>
                             </div>
                         </div>
                     </div>
@@ -21,7 +21,7 @@
                     {{-- SEARCH FORM --}}
                     <div class="col-12" style="margin-bottom:10px;">
                         <form action="{{route('list-ukm.index')}}" method="GET" autocomplete="off">
-                            <input type="text" minlength="3" name="search" class="form-control" placeholder="Search by name..">
+                            <input type="text" minlength="3" name="search" class="form-control" placeholder="Masukkan kata kunci..">
                         </form>
                     </div>
 
@@ -81,7 +81,7 @@
                                                                 @csrf
                                                                 @method('delete')
                                                                 
-                                                                <a class="dropdown-item" href="{{ route('list-ukm.edit', $data->id) }}">{{ __('Edit') }}</a>
+                                                                <!-- <a class="dropdown-item" href="{{ route('list-ukm.edit', $data->id) }}">{{ __('Edit') }}</a> -->
                                                                 <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this user?") }}') ? this.parentElement.submit() : ''">
                                                                     {{ __('Delete') }}
                                                                 </button>

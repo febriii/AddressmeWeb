@@ -21,7 +21,8 @@
         
         <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzYzyGAR3mvDJeIRquMhAJ71AbhfS8_zg"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA54EybaEcATds2loPLtKdAGdsIq9i_AFU"></script>
+        
 
     </head>
     <body class="{{ $class ?? '' }}">

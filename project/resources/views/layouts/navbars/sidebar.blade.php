@@ -105,11 +105,11 @@
 
                     <div class="collapse show" id="navbar-examples">
                         <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user.index') }}">
                                     {{ __('Data Admin') }}
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('pemilik.index') }}">
                                     {{ __('Data Pemilik') }}
@@ -125,7 +125,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.edit') }}">
-                    <i class="ni ni-settings text-primary"></i>{{ __('Edit Profil') }}
+                    <i class="ni ni-settings text-primary"></i>{{ __('Ubah Profil') }}
                     </a>
                 </li>
             </ul>
@@ -151,10 +151,10 @@
                     <div class=" dropdown-header noti-title">
                         <h6 class="text-overflow m-0">{{ __('Welcome!') }}</h6>
                     </div>
-                    <a href="{{ route('profile.edit') }}" class="dropdown-item">
+                    <!-- <a href="{{ route('profile.edit') }}" class="dropdown-item">
                         <i class="ni ni-single-02"></i>
                         <span>{{ __('My profile') }}</span>
-                    </a>
+                    </a> -->
                     <a href="#" class="dropdown-item">
                         <i class="ni ni-settings-gear-65"></i>
                         <span>{{ __('Settings') }}</span>
@@ -216,18 +216,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('profile.edit') }}">
-                    <i class="ni ni-settings text-primary"></i>{{ __('Edit Profil') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Edit UKM') }}
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('list-katalog.index') }}">
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Data Katalog') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="ni ni-settings text-primary"></i> {{ __('Ubah UKM') }}
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('profile.edit') }}">
+                    <i class="ni ni-settings text-primary"></i>{{ __('Ubah Profil') }}
                     </a>
                 </li>
             </ul>

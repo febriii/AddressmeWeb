@@ -26,7 +26,7 @@ class PemilikModel extends Model
                });
             }
         
-            return $data = $data->paginate(20);
+            return $data = $data->paginate(10);
 
     }
 }
