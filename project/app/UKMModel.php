@@ -26,7 +26,7 @@ class UKMModel extends Model
                });
             }
         
-            return $data = $data->paginate(1);
+            return $data = $data->paginate(20);
 
     }
 }

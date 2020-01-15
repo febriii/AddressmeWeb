@@ -117,7 +117,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('profile.edit') }}">
-                    <i class="ni ni-tv-2 text-primary"></i>{{ __('Edit Profile') }}
+                    <i class="ni ni-settings text-primary"></i>{{ __('Edit Profil') }}
                     </a>
                 </li>
             </ul>
