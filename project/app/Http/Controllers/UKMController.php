@@ -17,17 +17,12 @@ class UKMController extends Controller
     public function __construct(UKMModel $UKMModel)
     {
         $this->UKMModel = $UKMModel;
+        $this->middleware('isAdmin');
     }
 
     public function index(Request $request)
     {
-        // $data = UKMModel::get();
-        // $data = UKMModel::where('id_ukm','=', 'UKM001')->get();
-        // $data = $this->UKMModel->get();
-        // $dataUKM = DB::select('SELECT * FROM list_ukm ORDER BY nama_ukm ASC')->paginate(20); // GAYA NATIVE
 
-        // $dataUKM = UKMModel::orderby('nama_ukm','asc')->paginate(20);
-        
         $dataUKM = $this->UKMModel->getAllDataUKM($request);
 
         return view('list-ukm.index', compact('dataUKM'));
@@ -89,7 +84,7 @@ class UKMController extends Controller
 
     public function destroy(User  $user)
     {
-
+        
     }
 
     public function autoCorrectNumber($nohp)

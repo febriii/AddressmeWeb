@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
+use App\UserModel;
+use DB;
 
 class UserController extends Controller
 {
@@ -14,14 +17,20 @@ class UserController extends Controller
      * @param  \App\User  $model
      * @return \Illuminate\View\View
      */
-    public function __construct()
+
+    private $UserModel;
+
+    public function __construct(UserModel $UserModel)
     {
+        $this->UserModel = $UserModel;
         $this->middleware('isAdmin');
     }
-    
-    public function index(User $model)
+
+    public function index(Request $request)
     {
-        return view('users.index', ['users' => $model->paginate(15)]);
+        $users = $this->UserModel->getAllDataAdmin($request);
+
+        return view('users.index', compact('users'));
     }
 
     /**
