@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\UserModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -68,5 +70,39 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function showRegisForm()
+    {
+        return view('auth.register');
+    }
+
+    protected function store(Request $request)
+    {
+
+        $attributes = [
+            'name' => 'name',
+            'email' => 'email',
+            'username' => 'username',
+            'password' => 'password'
+        ];
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [], $attributes);
+
+        $data = new UserModel();
+        $data->name = $request->name;
+        $data->password = Hash::make($request->password);
+        $data->email = $request->email;
+        $data->username = $request->username;
+        $data->alamat = $request->alamat;
+        $data->no_telp = $request->no_telp;
+        $data->save();
+
+        return redirect()->back()->withStatus(__('Selamat! Pendaftaran berhasil dilakukan.'));
     }
 }

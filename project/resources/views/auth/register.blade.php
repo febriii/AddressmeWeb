@@ -10,10 +10,32 @@
                 <div class="card bg-secondary shadow border-0">
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
-                            <small>{{ __('Or sign up with credentials') }}</small>
+                            <small>{{ __('Sign up with credentials') }}</small>
                         </div>
-                        <form role="form" method="POST" action="{{ route('register') }}">
+                        <div class="col-12">
+                            @if (session('status'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('status') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger alert-with-icon" data-notify="container">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                </div>
+                            @endif
+                        </div>
+                        <form role="form" method="POST" action="{{ route('register.submit') }}" autocomplete="off">
                             @csrf
+                            @method('post')
 
                             <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
                                 <div class="input-group input-group-alternative mb-3">
@@ -25,6 +47,19 @@
                                 @if ($errors->has('name'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                            <div class="form-group{{ $errors->has('username') ? ' has-danger' : '' }}">
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                                    </div>
+                                    <input class="form-control" placeholder="{{ __('Username') }}" type="text" name="username" value="{{ old('username') }}" required autofocus>
+                                </div>
+                                @if ($errors->has('username'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('username') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -40,6 +75,22 @@
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                                    </div>
+                                    <input class="form-control" placeholder="{{ __('Alamat') }}" type="text" name="alamat" value="{{ old('alamat') }}" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group input-group-alternative mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                                    </div>
+                                    <input class="form-control" placeholder="{{ __('Nomor Telepon') }}" type="number" name="no_telp" value="{{ old('no_telp') }}" required autofocus>
+                                </div>
                             </div>
                             <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
                                 <div class="input-group input-group-alternative">

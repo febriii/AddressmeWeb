@@ -19,7 +19,7 @@
                                 {{ __('Password') }} <strong>rahasia123</strong>
                             </small>
                         </div>
-                        <form role="form" method="POST" action="{{ route('login') }}">
+                        <form role="form" method="POST" action="{{ route('login') }}" autocomplete="off">
                             @csrf
 
                             <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }} mb-3">
