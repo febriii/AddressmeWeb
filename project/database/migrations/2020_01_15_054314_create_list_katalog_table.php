@@ -24,7 +24,7 @@ class CreateListKatalogTable extends Migration
             $table->string('stok_produk');
             $table->string('harga_katalog');
             $table->string('gambar_katalog');
-            $table->string('user_ubah');
+            $table->string('user_ubah')->nullable();
             $table->timestamps();
             $table->string('status');
         });

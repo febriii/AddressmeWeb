@@ -216,7 +216,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('list-katalog.index') }}">
+                    <a class="nav-link" href="{{ route('katalog.index') }}">
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Data Katalog') }}
                     </a>
                 </li>

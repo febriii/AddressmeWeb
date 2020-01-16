@@ -10,20 +10,20 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-6">
-                                <h3 class="mb-0">{{ __('Katalog') }}</h3>
+                                <h3 class="mb-0">{{ __('Daftar Katalog') }}</h3>
                             </div>
                             <div class="col-6 text-right">
-                                <a href="{{ route('pemilik.create') }}" class="btn btn-sm btn-primary">{{ __('Tambah Katalog') }}</a>
+                                <a href="{{ route('katalog.create') }}" class="btn btn-sm btn-primary">{{ __('Tambah Data') }}</a>
                             </div>
                         </div>
                     </div>
                     
                     {{-- SEARCH FORM --}}
-                    <div class="col-12" style="margin-bottom:10px;">
+                    <!-- <div class="col-12" style="margin-bottom:10px;">
                         <form action="{{route('pemilik.index')}}" method="GET" autocomplete="off">
                             <input type="text" minlength="3" name="search" class="form-control" placeholder="Masukkan kata kunci..">
                         </form>
-                    </div>
+                    </div> -->
                     
                     <div class="col-12">
                         @if (session('status'))
@@ -40,36 +40,44 @@
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col">{{ __('Nama') }}</th>
-                                        <th scope="col">{{ __('Username') }}</th>
-                                        <th scope="col">{{ __('Email') }}</th>
-                                        <th scope="col">{{ __('Alamat') }}</th>
-                                        <th scope="col">{{ __('Nomor Telepon') }}</th>
+                                        <th scope="col">{{ __('Id Katalog') }}</th>
+                                        <th scope="col">{{ __('Id UKM') }}</th>
+                                        <th scope="col">{{ __('Judul Katalog') }}</th>
+                                        <th scope="col">{{ __('Usia') }}</th>
+                                        <th scope="col">{{ __('Ukuran') }}</th>
+                                        <th scope="col">{{ __('Stok Katalog') }}</th>
+                                        <th scope="col">{{ __('Harga Katalog') }}</th>
+                                        <th scope="col">{{ __('Gambar Katalog') }}</th>
+                                        <th scope="col">{{ __('User Ubah') }}</th>
                                         <th scope="col">{{ __('Creation Date') }}</th>
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
+                                    @foreach ($dataKatalog as $data)
                                         <tr>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->username }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->alamat }}</td>
-                                            <td>{{ $user->no_telp }}</td>
-                                            <td><?php echo date("d-M-Y",strtotime($user->created_at)); ?></td>
+                                            <td>{{ $data->id_katalog }}</td>
+                                            <td>{{ $data->id_ukm }}</td>
+                                            <td>{{ $data->judul_katalog }}</td>
+                                            <td>{{ $data->usia }}</td>
+                                            <td>{{ $data->ukuran }}</td>
+                                            <td>{{ $data->stok_katalog }}</td>
+                                            <td>{{ $data->harga_katalog }}</td>
+                                            <td>{{ $data->gambar_katalog }}</td>
+                                            <td>{{ $data->user_ubah }}</td>
+                                            <td><?php echo date("d-M-Y",strtotime($data->created_at)); ?></td>
                                             <td class="text-right">
                                                 <div class="dropdown">
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <form action="{{ route('pemilik.destroy', $user->id) }}" method="post">
+                                                        <form action="{{ route('pemilik.destroy', $data->id) }}" method="post">
                                                             @csrf
                                                             @method('delete')
                                                             
-                                                            <!-- <a class="dropdown-item" href="{{ route('pemilik.edit', $user->id) }}">{{ __('Edit') }}</a> -->
-                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this user?") }}') ? this.parentElement.submit() : ''">
+                                                            <a class="dropdown-item" href="{{ route('pemilik.edit', $data->id) }}">{{ __('Edit') }}</a>
+                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this data?") }}') ? this.parentElement.submit() : ''">
                                                                 {{ __('Delete') }}
                                                             </button>
                                                         </form>    
@@ -84,7 +92,7 @@
                     </div>
                     <div class="card-footer py-4">
                         <nav class="d-flex justify-content-end" aria-label="...">
-                            {{ $users->links() }}
+                            {{ $dataKatalog->links() }}
                         </nav>
                     </div>
                 </div>
