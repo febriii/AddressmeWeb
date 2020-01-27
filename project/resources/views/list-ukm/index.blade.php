@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('UKM Management')])
+@extends('layouts.app', ['title' => __('Manajemen UKM')])
 
 @section('content')
     @include('layouts.headers.cards')
@@ -82,8 +82,8 @@
                                                                 @method('delete')
                                                                 
                                                                 <!-- <a class="dropdown-item" href="{{ route('list-ukm.edit', $data->id) }}">{{ __('Edit') }}</a> -->
-                                                                <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this user?") }}') ? this.parentElement.submit() : ''">
-                                                                    {{ __('Delete') }}
+                                                                <button type="button" class="dropdown-item" onclick="confirm('{{ __("Apakah Anda yakin akan menghapus data ini?") }}') ? this.parentElement.submit() : ''">
+                                                                    {{ __('Hapus') }}
                                                                 </button>
                                                             </form>    
                                                     </div>

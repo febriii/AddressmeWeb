@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
+use App\PemilikModel;
 
 class ProfileController extends Controller
 {
@@ -15,7 +16,9 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        return view('profile.edit');
+        $dataPemilik = PemilikModel::where('id',auth()->user()->id)->first();
+        // dd($dataPemilik);
+        return view('profile.edit', compact('dataPemilik'));
     }
 
     /**
@@ -26,9 +29,16 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request)
     {
+        $dataPemilik = PemilikModel::where('id',auth()->user()->id)->first();
+        // dd($dataPemilik);
+        $dataPemilik->username = $request->username;
+        $dataPemilik->alamat = $request->alamat;
+        $dataPemilik->no_telp = $request->no_telp;
+        $dataPemilik->save();
+
         auth()->user()->update($request->all());
 
-        return back()->withStatus(__('Profile successfully updated.'));
+        return back()->withStatus(__('Profil berhasil diperbaharui.'));
     }
 
     /**
@@ -41,6 +51,6 @@ class ProfileController extends Controller
     {
         auth()->user()->update(['password' => Hash::make($request->get('password'))]);
 
-        return back()->withPasswordStatus(__('Password successfully updated.'));
+        return back()->withPasswordStatus(__('Kata Sandi berhasil diperbaharui.'));
     }
 }

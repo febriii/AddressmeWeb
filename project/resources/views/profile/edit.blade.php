@@ -3,7 +3,7 @@
 @section('content')
     @include('users.partials.header', [
         'title' => __('Hello') . ' '. auth()->user()->name,
-        'description' => __('This is your profile page. You can see the progress you\'ve made with your work and manage your projects or assigned tasks'),
+        'description' => __('Ini adalah halaman profil Anda. Anda dapat melihat dan mengubah data profil'),
         'class' => 'col-lg-7'
     ])   
 
@@ -89,13 +89,43 @@
                             @endif
 
                             <div class="pl-lg-4">
-                                <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
+                            <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-name">{{ __('Nama Pemilik') }}</label>
                                     <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('username') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-username">{{ __('Username') }}</label>
+                                    <input type="text" name="username" id="input-username" class="form-control form-control-alternative{{ $errors->has('username') ? ' is-invalid' : '' }}" placeholder="{{ __('Username') }}" value="{{ old('username', $dataPemilik->username) }}" required autofocus>
+
+                                    @if ($errors->has('username'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('username') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('alamat') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-alamat">{{ __('Alamat') }}</label>
+                                    <input type="text" name="alamat" id="input-alamat" class="form-control form-control-alternative{{ $errors->has('alamat') ? ' is-invalid' : '' }}" placeholder="{{ __('Alamat') }}" value="{{ old('alamat', $dataPemilik->alamat) }}" required autofocus>
+
+                                    @if ($errors->has('alamat'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('alamat') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group{{ $errors->has('no_telp') ? ' has-danger' : '' }}">
+                                    <label class="form-control-label" for="input-no-telp">{{ __('No Telpon') }}</label>
+                                    <input type="number" name="no_telp" id="input-no-telp" class="form-control form-control-alternative{{ $errors->has('no_telp') ? ' is-invalid' : '' }}" placeholder="{{ __('No Telpon') }}" value="{{ old('no_telp', $dataPemilik->no_telp) }}" required autofocus>
+
+                                    @if ($errors->has('no_telp'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('no_telp') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -111,7 +141,7 @@
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
+                                    <button type="submit" class="btn btn-success mt-4">{{ __('Simpan') }}</button>
                                 </div>
                             </div>
                         </form>
@@ -120,7 +150,7 @@
                             @csrf
                             @method('put')
 
-                            <h6 class="heading-small text-muted mb-4">{{ __('Password') }}</h6>
+                            <h6 class="heading-small text-muted mb-4">{{ __('Kata Sandi') }}</h6>
 
                             @if (session('password_status'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -133,8 +163,8 @@
 
                             <div class="pl-lg-4">
                                 <div class="form-group{{ $errors->has('old_password') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-current-password">{{ __('Current Password') }}</label>
-                                    <input type="password" name="old_password" id="input-current-password" class="form-control form-control-alternative{{ $errors->has('old_password') ? ' is-invalid' : '' }}" placeholder="{{ __('Current Password') }}" value="" required>
+                                    <label class="form-control-label" for="input-current-password">{{ __('Kata Sandi Lama') }}</label>
+                                    <input type="password" name="old_password" id="input-current-password" class="form-control form-control-alternative{{ $errors->has('old_password') ? ' is-invalid' : '' }}" placeholder="{{ __('Kata Sandi Lama') }}" value="" required>
                                     
                                     @if ($errors->has('old_password'))
                                         <span class="invalid-feedback" role="alert">
@@ -143,8 +173,8 @@
                                     @endif
                                 </div>
                                 <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-password">{{ __('New Password') }}</label>
-                                    <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('New Password') }}" value="" required>
+                                    <label class="form-control-label" for="input-password">{{ __('Kata Sandi Baru') }}</label>
+                                    <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Kata Sandi Baru') }}" value="" required>
                                     
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
@@ -153,12 +183,12 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-password-confirmation">{{ __('Confirm New Password') }}</label>
-                                    <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Confirm New Password') }}" value="" required>
+                                    <label class="form-control-label" for="input-password-confirmation">{{ __('Konfirmasi Kata Sandi Baru') }}</label>
+                                    <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Konfirmasi Kata Sandi Baru') }}" value="" required>
                                 </div>
 
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-success mt-4">{{ __('Change password') }}</button>
+                                    <button type="submit" class="btn btn-success mt-4">{{ __('Ubah Kata Sandi') }}</button>
                                 </div>
                             </div>
                         </form>

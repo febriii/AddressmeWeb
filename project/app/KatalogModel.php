@@ -15,8 +15,12 @@ class KatalogModel extends Model
 
     public function getAllDataKatalog(Request $request)
     {
-        $data = DB::table('list_katalog')->orderby('judul_katalog','asc')->where('status','1');
+        $getIdUkm = DB::table('list_ukm')->select('id_ukm')->where('id_user',auth()->user()->id)->value('id_ukm');
 
+        $data = DB::table('list_katalog')->join('users','list_katalog.user_ubah','users.id')->where('id_ukm',$getIdUkm)
+        ->where('list_katalog.status','1')->orderby('list_katalog.updated_at','desc');
+        // $data = DB::table('list_katalog')->where('id_ukm',$getIdUkm)->orwhere('status','1')->orderby('updated_at','desc');
+        
             if($request->get('search')!=null){
                 
                 $data = $data->Where(function ($query) use ($request) {
@@ -24,6 +28,8 @@ class KatalogModel extends Model
                     ->where('list_katalog.id_katalog', 'like',"%".$request->get('search')."%")
                     ->orwhere('list_katalog.judul_katalog','like',"%".$request->get('search')."%");
                });
+            }else{
+                // ngeluarin pesan bahwa data yang dicari tidak ditemukan
             }
         
             return $data = $data->paginate(10);

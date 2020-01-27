@@ -133,7 +133,7 @@
         </div>
         <?php } ?>
 
-        {{-- JIKA PEMILIK --}}
+        {{-- JIKA PEMILIK UKM --}}
         <?php if($isAdmin == 1){?>
 
         <!-- User -->
@@ -221,7 +221,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="{{ route('pemilik-ukm.edit') }}">
                         <i class="ni ni-settings text-primary"></i> {{ __('Ubah UKM') }}
                     </a>
                 </li>

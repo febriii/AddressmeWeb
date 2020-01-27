@@ -23,7 +23,7 @@
                             @method('post')
                             
                             <h6 class="heading-small text-muted mb-4">{{ __('Informasi Katalog') }}</h6>
-                                <div class="form-group{{ $errors->has('id_katalog') ? ' has-danger' : '' }}">
+                                <!-- <div class="form-group{{ $errors->has('id_katalog') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-id-katalog">{{ __('Id Katalog') }}</label>
                                     <input type="text" name="id_katalog" id="input-id-katalog" class="form-control form-control-alternative{{ $errors->has('id_katalog') ? ' is-invalid' : '' }}" placeholder="{{ __('Id Katalog') }}" value="{{ old('id_katalog') }}" required autofocus>
 
@@ -32,15 +32,11 @@
                                             <strong>{{ $errors->first('id_katalog') }}</strong>
                                         </span>
                                     @endif
-                                </div>
+                                </div> -->
                                 <div class="form-group">
-                                    <label class="form-control-label" >{{ __('Id UKM') }}</label>
-                                    <select name="id_ukm" class="custom-select" required="required">
-                                        <option disabled selected value="">- Pilih</option>
-                                        @foreach($idUKM as $x)
-                                        <option value="{{ $x->id }}"> {{ $x->id_ukm }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input type="hidden" value="{{$newId}}" name="idKatalog"> {{-- TAMPUNGAN ID KATALOG --}}
+                                    <input type="hidden" value="{{$idUKM}}" name="IDUKM"> {{-- TAMPUNGAN ID UKM --}}
+                                    
                                 </div>
                                 <div class="form-group{{ $errors->has('judul_katalog') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-judul-katalog">{{ __('Judul Katalog') }}</label>
@@ -74,7 +70,7 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('stok_katalog') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-stok-katalog">{{ __('Stok Katalog') }}</label>
-                                    <input type="text" name="judul_katalog" id="input-stok-katalog" class="form-control form-control-alternative{{ $errors->has('stok_katalog') ? ' is-invalid' : '' }}" placeholder="{{ __('Stok Katalog') }}" value="{{ old('stok_katalog') }}" required>
+                                    <input type="text" name="stok_katalog" id="input-stok-katalog" class="form-control form-control-alternative{{ $errors->has('stok_katalog') ? ' is-invalid' : '' }}" placeholder="{{ __('Stok Katalog') }}" value="{{ old('stok_katalog') }}" required>
 
                                     @if ($errors->has('stok_katalog'))
                                         <span class="invalid-feedback" role="alert">

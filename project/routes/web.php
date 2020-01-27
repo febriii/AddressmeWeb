@@ -48,6 +48,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 	// ROUTE PEMILIK
 	Route::resource('katalog','KatalogController');
+	Route::get('pemilik-ukm', ['as' => 'pemilik-ukm.edit', 'uses' => 'PUKMController@edit']);
+	Route::put('pemilik-ukm', ['as' => 'pemilik-ukm.update', 'uses' => 'PUKMController@update']);
+	
 
 });
 
