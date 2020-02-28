@@ -2,7 +2,10 @@
 
 @section('content')
     @include('users.partials.header', ['title' => __('Tambah UKM')])   
-
+@php
+$isAdmin = auth()->user()->status;
+@endphp
+<?php if($isAdmin != 3){?>
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col-xl-12 order-xl-1">
@@ -18,21 +21,31 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('list-ukm.store') }}" autocomplete="off">
+                        <form method="post" action="{{ route('list-ukm.store') }}" autocomplete="off" enctype="multipart/form-data">
                             @csrf
                             @method('post')
         
                             <div class="pl-lg-4">
                                 <div class="form-group">
-                                    <label class="form-control-label" >{{ __('ID UKM') }}</label>
-                                    <input type="text" name="id_ukm" class="form-control" placeholder="{{ __('ID UKM') }}" value="{{ old('id_ukm') }}" required autofocus>
-                                </div>
+                                    <label class="form-control-label" >{{ __('Id UKM') }}</label>
+                                    <input type="text" name="id_ukm" class="form-control form-control-alternative{{ $errors->has('id_ukm') ? ' is-invalid' : '' }}" placeholder="{{ __('Id Lokasi UKM') }}" value="{{ old('id_ukm') }}" required autofocus>
+									@if ($errors->has('id_ukm'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('id_ukm') }}</strong>
+                                        </span>
+                                    @endif
+								</div>
                                 <div class="form-group">
                                     <label class="form-control-label" >{{ __('Nama UKM') }}</label>
-                                    <input type="text" name="nama_ukm" class="form-control" placeholder="{{ __('Nama UKM') }}" value="{{ old('nama_ukm') }}" required autofocus>
+                                    <input type="text" name="nama_ukm" class="form-control form-control-alternative{{ $errors->has('nama_ukm') ? ' is-invalid' : '' }}" placeholder="{{ __('Nama Lokasi UKM') }}" value="{{ old('nama_ukm') }}" required autofocus>
+									@if ($errors->has('nama_ukm'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('nama_ukm') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-control-label" >{{ __('Nama Pemilik') }}</label>
+                                    <label class="form-control-label" >{{ __('Nama Pemilik UKM') }}</label>
                                     <select name="id_pemilik" class="custom-select" required="required">
                                         <option disabled selected value="">- Pilih</option>
                                         @foreach($namaPemilik as $x)
@@ -42,12 +55,22 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label" >{{ __('Nomor Telepon') }}</label>
-                                    <input type="number" min="0" name="no_telp" class="form-control" placeholder="{{ __('Nomor Telepon UKM') }}" value="{{ old('no_telp') }}" required autofocus>
-                                </div>
+                                    <input type="number" min="0" name="no_telp" class="form-control form-control-alternative{{ $errors->has('no_telp') ? ' is-invalid' : '' }}" placeholder="{{ __('Nomor Telepon/HP Lokasi UKM') }}" value="{{ old('no_telp') }}" required autofocus>
+									@if ($errors->has('no_telp'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('no_telp') }}</strong>
+                                        </span>
+                                    @endif
+								</div>
                                 <div class="form-group">
                                     <label class="form-control-label" >{{ __('Website') }}</label>
-                                    <input type="text" name="website" class="form-control" placeholder="{{ __('Website UKM') }}" value="{{ old('website') }}" required autofocus>
-                                </div>
+                                    <input type="text" name="website" class="form-control form-control-alternative{{ $errors->has('website') ? ' is-invalid' : '' }}" placeholder="{{ __('Media Sosial Lokasi UKM') }}" value="{{ old('website') }}" required autofocus>
+									@if ($errors->has('website'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('website') }}</strong>
+                                        </span>
+                                    @endif
+								</div>
                                 <div class="form-group input-group">
                                     <input type="text" id="search_location" class="form-control" placeholder="Cari Lokasi">
                                     <div class="input-group-btn">
@@ -61,20 +84,40 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-control-label" >{{ __('Alamat') }}</label>
-                                    <input type="text" name="alamat" class="form-control search_addr" placeholder="{{ __('Alamat UKM') }}" value="{{ old('alamat') }}" required autofocus>
-                                </div>
+                                    <input type="text" name="alamat" class="form-control form-control-alternative{{ $errors->has('alamat') ? ' is-invalid' : '' }} search_addr" placeholder="{{ __('Alamat Lokasi UKM') }}" value="{{ old('alamat') }}" required autofocus>
+									@if ($errors->has('alamat'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('alamat') }}</strong>
+                                        </span>
+                                    @endif
+								</div>
                                 <div class="form-group">
                                     <label class="form-control-label" >{{ __('Latitude') }}</label>
-                                    <input type="text" name="lat" class="form-control search_latitude" placeholder="{{ __('Latitude UKM') }}" value="{{ old('lat') }}" required autofocus>
-                                </div>
+                                    <input type="text" name="lat" class="form-control form-control-alternative{{ $errors->has('lat') ? ' is-invalid' : '' }} search_latitude" placeholder="{{ __('Latitude Lokasi UKM') }}" value="{{ old('lat') }}" required autofocus>
+									@if ($errors->has('lat'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('lat') }}</strong>
+                                        </span>
+                                    @endif
+								</div>
                                 <div class="form-group">
                                     <label class="form-control-label" >{{ __('Longitude') }}</label>
-                                    <input type="text" name="lng" class="form-control search_longitude" placeholder="{{ __('Longitude UKM') }}" value="{{ old('lng') }}" required autofocus>
-                                </div>
+                                    <input type="text" name="lng" class="form-control form-control-alternative{{ $errors->has('lng') ? ' is-invalid' : '' }} search_longitude" placeholder="{{ __('Longitude Lokasi UKM') }}" value="{{ old('lng') }}" required autofocus>
+									@if ($errors->has('lng'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('lng') }}</strong>
+                                        </span>
+                                    @endif
+								</div>
                                 <div class="form-group">
                                     <label class="form-control-label" >{{ __('Gambar') }}</label>
-                                    <input type="text" name="gambar_ukm" class="form-control" placeholder="{{ __('Gambar UKM') }}" value="{{ old('gambar_ukm') }}" required autofocus>
-                                </div>
+                                    <input type="file" name="gambar_ukm" class="form-control form-control-alternative{{ $errors->has('gambar_ukm') ? ' is-invalid' : '' }}" placeholder="{{ __('Logo/Foto Lokasi UKM') }}" value="{{ old('gambar_ukm') }}">
+									@if ($errors->has('gambar_ukm'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('gambar_ukm') }}</strong>
+                                        </span>
+                                    @endif
+								</div>
 
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-success mt-4">{{ __('Tambah Data') }}</button>
@@ -212,5 +255,5 @@
             height: 400px;
         }
     </style>
-
+<?php }?>
 @endsection

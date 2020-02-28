@@ -23,6 +23,9 @@ class PemilikController extends Controller
 
     public function index(Request $request)
     {
+        // $password = 'anjenggg';
+        // $hash = Hash::make($password);
+        // dd($hash);
         $users = $this->PemilikModel->getAllDataPemilik($request);
         
         return view('list-pemilik.index', compact('users'));
@@ -35,31 +38,35 @@ class PemilikController extends Controller
     
     public function store(Request $request)
     {
-
         $attributes = [
             'name' => 'name',
             'email' => 'email',
             'username' => 'username',
-            'password' => 'password'
+            'password' => 'password',
+            'alamat' => 'alamat',
+            'no_telp' => 'no_telp'
         ];
-    
+
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'alpha_spaces', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'username' => ['required', 'string', 'unique:users'],
+            'username' => ['required', 'string', 'alpha_dash', 'min:6', 'max:15', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'alamat' => ['required', 'string', 'alamat_validation', 'max:255'],
+            'no_telp' => ['required', 'no_telp_validation', 'min:10', 'max:13'],
         ], [], $attributes);
 
-        $dataAdmin = new PemilikModel();
-        $dataAdmin->name = $request->name;
-        $dataAdmin->username = $request->username;
-        $dataAdmin->email = $request->email;
-        $dataAdmin->password = Hash::make($request->password);
-        $dataAdmin->alamat = $request->alamat;
-        $dataAdmin->no_telp = $request->no_telp;
-        $dataAdmin->status = 1;
+        $dataPemilik = new PemilikModel();
+        $dataPemilik->name = $request->name;
+        $dataPemilik->username = $request->username;
+        $dataPemilik->email = $request->email;
+        $dataPemilik->password = Hash::make($request->password);
+        $dataPemilik->alamat = $request->alamat;
+        $hp = $this->autoCorrectNumber($request->no_telp);
+        $dataPemilik->no_telp = $hp;
+        $dataPemilik->status = 1;
 
-        $dataAdmin->save();
+        $dataPemilik->save();
         
         return redirect()->route('pemilik.index')->withStatus(__('Data berhasil ditambahkan!'));
     }
@@ -81,38 +88,119 @@ class PemilikController extends Controller
 
     public function update(Request $request, $id)
     {
-        $attributes = [
-            'name' => 'name',
-            'email' => 'email',
-            'username' => 'username',
-            'password' => 'password'
-        ];
-    
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', \Illuminate\Validation\Rule::unique('users')->ignore($id)],
-            'username' => ['required', 'string', Rule::unique('users')->ignore($id)],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ], [], $attributes);
+        $dataUsername = PemilikModel::where('id',$id)->value('username');
+        $dataEmail = PemilikModel::where('id',$id)->value('email');
+        
+        if($dataUsername == $request->username){
+            if($dataEmail == $request->email){
+                //username dan email sama
+                $attributes = [
+                    'name' => 'name',
+                    'alamat' => 'alamat',
+                    'no_telp' => 'no_telp'
+                ];
+                $request->validate([
+                    'name' => ['required', 'string', 'alpha_spaces', 'max:255'],
+                    'alamat' => ['required', 'string', 'alamat_validation', 'max:255'],
+                    'no_telp' => ['required', 'no_telp_validation', 'min:10', 'max:13'],
+                ], [], $attributes);
+            }else{
+                //username sama, email beda
+                $attributes = [
+                    'name' => 'name',
+                    'email' => 'email',
+                    'alamat' => 'alamat',
+                    'no_telp' => 'no_telp'
+                ];
+                $request->validate([
+                    'name' => ['required', 'string', 'alpha_spaces', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'alamat' => ['required', 'string', 'alamat_validation', 'max:255'],
+                    'no_telp' => ['required', 'no_telp_validation', 'min:10', 'max:13'],
+                ], [], $attributes);
+            }
+        }else{
+            if($dataEmail == $request->email){
+                //username beda, email sama
+                $attributes = [
+                    'name' => 'name',
+                    'username' => 'username',
+                    'alamat' => 'alamat',
+                    'no_telp' => 'no_telp'
+                ];
+                $request->validate([
+                    'name' => ['required', 'string', 'alpha_spaces', 'max:255'],
+                    'username' => ['required', 'string', 'alpha_dash', 'min:6', 'max:15', 'unique:users'],
+                    'alamat' => ['required', 'string', 'alamat_validation', 'max:255'],
+                    'no_telp' => ['required', 'no_telp_validation', 'min:10', 'max:13'],
+                ], [], $attributes);
+            }else{
+                //username dan email beda
+                $attributes = [
+                    'name' => 'name',
+                    'email' => 'email',
+                    'username' => 'username',
+                    'alamat' => 'alamat',
+                    'no_telp' => 'no_telp'
+                ];
+                $request->validate([
+                    'name' => ['required', 'string', 'alpha_spaces', 'max:255'],
+                    'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                    'username' => ['required', 'string', 'alpha_dash', 'min:6', 'max:15', 'unique:users'],
+                    'alamat' => ['required', 'string', 'alamat_validation', 'max:255'],
+                    'no_telp' => ['required', 'no_telp_validation', 'min:10', 'max:13'],
+                ], [], $attributes);
+            }
+        }
 
-        $dataAdmin = PemilikModel::where('id',$id)->first();
-        $dataAdmin->name = $request->name;
-        $dataAdmin->username = $request->username;
-        $dataAdmin->email = $request->email;
-        $dataAdmin->password = Hash::make($request->password);
-        $dataAdmin->alamat = $request->alamat;
-        $dataAdmin->no_telp = $request->no_telp;
-        $dataAdmin->status = 1;
+        $dataPemilik = PemilikModel::where('id',$id)->first();
+        $dataPemilik->name = $request->name;
+        $dataPemilik->username = $request->username;
+        $dataPemilik->email = $request->email;
+        $dataPemilik->alamat = $request->alamat;
+        $hp = $this->autoCorrectNumber($request->no_telp);
+        $dataPemilik->no_telp = $hp;
+        $dataPemilik->status = 1;
 
-        $dataAdmin->save();
+        $dataPemilik->save();
 
         return redirect()->route('pemilik.index')->withStatus(__('Data berhasil diperbaharui!'));
     }
 
-    public function destroy(User  $user)
+    public function destroy($id)
     {
-        $user->delete();
+        $dataPemilik = PemilikModel::where('id',$id)->first();
 
-        return redirect()->route('pemilik.index')->withStatus(__('User successfully deleted.'));
+        $dataPemilik->status = 0;
+        
+        $dataPemilik->save();
+
+        return redirect()->route('pemilik.index')->withStatus(__('Data berhasil dihapus!'));
+    }
+
+    public function autoCorrectNumber($nohp)
+    {
+        if(!preg_match('/[^+0-9]/',trim($nohp))){
+            if(substr(trim($nohp), 0, 1)=='0'){
+                $hp = trim($nohp);
+            }
+            elseif(substr(trim($nohp), 0, 2)=='62'){
+                $hp = '0'.substr(trim($nohp), 2);
+            }
+            elseif(substr(trim($nohp), 0, 1)=='8'){
+                $hp = '08'.substr(trim($nohp), 1);
+            }
+            elseif(substr(trim($nohp), 0, 1)=='2'){
+                $hp = '02'.substr(trim($nohp), 1);
+            }
+            // elseif(substr(trim($nohp), 0, 1)=='2'){
+            //     $hp = '622'.substr(trim($nohp), 1);
+            // }
+            // else
+            // {
+            //     $hp = '0';
+            // }
+        }
+        return $hp;
     }
 }

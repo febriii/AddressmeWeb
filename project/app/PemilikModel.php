@@ -15,7 +15,7 @@ class PemilikModel extends Model
 
     public function getAllDataPemilik(Request $request)
     {
-        $data = DB::table('users')->orderby('name','asc')->where('status','1');
+        $data = DB::table('users')->orderby('id','asc')->where('status','1');
 
             if($request->get('search')!=null){
                 

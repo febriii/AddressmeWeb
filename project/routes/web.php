@@ -14,7 +14,7 @@
 Route::group(['middleware' => 'guest'], function(){
 	Route::get('/', function () {
 		return view('welcome');
-	});
+	})->name('home');
 });
 
 Auth::routes();
@@ -28,6 +28,11 @@ Route::group(['middleware' => 'auth'], function(){
 		}
 	})->name('home');
 });
+
+
+Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/login','Auth\LoginController@login')->name('login.submit');
+Route::post('/logout','Auth\LoginController@logout')->name('logout');
 
 Route::get('/register', 'Auth\RegisterController@showRegisForm')->name('register');
 Route::post('/register', 'Auth\RegisterController@store')->name('register.submit');
@@ -50,7 +55,6 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('katalog','KatalogController');
 	Route::get('pemilik-ukm', ['as' => 'pemilik-ukm.edit', 'uses' => 'PUKMController@edit']);
 	Route::put('pemilik-ukm', ['as' => 'pemilik-ukm.update', 'uses' => 'PUKMController@update']);
-	
 
 });
 

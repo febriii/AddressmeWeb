@@ -10,7 +10,7 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-6">
-                                <h3 class="mb-0">{{ __('Pemilik UKM') }}</h3>
+                                <h3 class="mb-0">{{ __('Pengelolaan Data Pemilik UKM') }}</h3>
                             </div>
                             <div class="col-6 text-right">
                                 <a href="{{ route('pemilik.create') }}" class="btn btn-sm btn-primary">{{ __('Tambah Data') }}</a>
@@ -40,6 +40,7 @@
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                     <tr>
+                                        <th scope="col">{{ __('No.') }}</th>
                                         <th scope="col">{{ __('Nama') }}</th>
                                         <th scope="col">{{ __('Username') }}</th>
                                         <th scope="col">{{ __('Email') }}</th>
@@ -50,8 +51,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                    $i = 0;
+                                    @endphp
                                     @foreach ($users as $user)
                                         <tr>
+                                            <td>{{ ++$i }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->username }}</td>
                                             <td>{{ $user->email }}</td>
@@ -68,7 +73,7 @@
                                                             @csrf
                                                             @method('delete')
                                                             
-                                                            <!-- <a class="dropdown-item" href="{{ route('pemilik.edit', $user->id) }}">{{ __('Edit') }}</a> -->
+                                                            <a class="dropdown-item" href="{{ route('pemilik.edit', $user->id) }}">{{ __('Ubah') }}</a>
                                                             <button type="button" class="dropdown-item" onclick="confirm('{{ __("Apakah Anda yakin akan menghapus data ini?") }}') ? this.parentElement.submit() : ''">
                                                                 {{ __('Hapus') }}
                                                             </button>

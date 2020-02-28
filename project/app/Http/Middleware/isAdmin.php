@@ -15,7 +15,7 @@ class isAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->check() && $request->user()->status == 1){
+        if(auth()->check() && $request->user()->status != 2){
             // JIKA BUKAN ADMIN 
             return redirect('/home');
         }

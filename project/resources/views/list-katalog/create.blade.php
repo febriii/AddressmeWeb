@@ -2,7 +2,10 @@
 
 @section('content')
     @include('users.partials.header', ['title' => __('Tambah Katalog')])   
-
+    @php
+    $isAdmin = auth()->user()->status;
+    @endphp
+    <?php if($isAdmin != 3){?>
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col-xl-12 order-xl-1">
@@ -18,7 +21,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="post" action="{{ route('katalog.store') }}" autocomplete="off">
+                        <form method="post" action="{{ route('katalog.store') }}" autocomplete="off" enctype="multipart/form-data">
                             @csrf
                             @method('post')
                             
@@ -51,7 +54,6 @@
                                 <div class="form-group{{ $errors->has('usia') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-usia">{{ __('Usia') }}</label>
                                     <input type="text" name="usia" id="input-usia" class="form-control form-control-alternative{{ $errors->has('usia') ? ' is-invalid' : '' }}" placeholder="{{ __('Usia') }}" value="{{ old('usia') }}" required>
-
                                     @if ($errors->has('usia'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('usia') }}</strong>
@@ -61,7 +63,6 @@
                                 <div class="form-group{{ $errors->has('ukuran') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-ukuran">{{ __('Ukuran') }}</label>
                                     <input type="text" name="ukuran" id="input-ukuran" class="form-control form-control-alternative{{ $errors->has('ukuran') ? ' is-invalid' : '' }}" placeholder="{{ __('Ukuran') }}" value="{{ old('ukuran') }}" required>
-
                                     @if ($errors->has('ukuran'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('ukuran') }}</strong>
@@ -71,7 +72,6 @@
                                 <div class="form-group{{ $errors->has('stok_katalog') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-stok-katalog">{{ __('Stok Katalog') }}</label>
                                     <input type="text" name="stok_katalog" id="input-stok-katalog" class="form-control form-control-alternative{{ $errors->has('stok_katalog') ? ' is-invalid' : '' }}" placeholder="{{ __('Stok Katalog') }}" value="{{ old('stok_katalog') }}" required>
-
                                     @if ($errors->has('stok_katalog'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('stok_katalog') }}</strong>
@@ -81,7 +81,6 @@
                                 <div class="form-group{{ $errors->has('harga_katalog') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-harga-katalog">{{ __('Harga Katalog') }}</label>
                                     <input type="text" name="harga_katalog" id="input-harga-katalog" class="form-control form-control-alternative{{ $errors->has('harga_katalog') ? ' is-invalid' : '' }}" placeholder="{{ __('Harga Katalog') }}" value="{{ old('harga_katalog') }}" required>
-
                                     @if ($errors->has('harga_katalog'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('harga_katalog') }}</strong>
@@ -90,8 +89,7 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('gambar_katalog') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-gambar-katalog">{{ __('Gambar Katalog') }}</label>
-                                    <input type="text" name="gambar_katalog" id="input-gambar-katalog" class="form-control form-control-alternative{{ $errors->has('gambar_katalog') ? ' is-invalid' : '' }}" placeholder="{{ __('Gambar Katalog') }}" value="{{ old('gambar_katalog') }}" required>
-
+                                    <input type="file" name="gambar_katalog" id="input-gambar-katalog" class="form-control form-control-alternative{{ $errors->has('gambar_katalog') ? ' is-invalid' : '' }}" placeholder="{{ __('Gambar Katalog') }}" value="{{ old('gambar_katalog') }}" required>
                                     @if ($errors->has('gambar_katalog'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('gambar_katalog') }}</strong>
@@ -120,4 +118,5 @@
         
         @include('layouts.footers.auth')
     </div>
+    <?php }?>
 @endsection

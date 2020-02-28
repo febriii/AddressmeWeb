@@ -15,7 +15,7 @@ class isPemilik
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->check() && $request->user()->status == 2){
+        if(auth()->check() && $request->user()->status != 1){
             // JIKA BUKAN PEMILIK 
             return redirect('/home');
         }

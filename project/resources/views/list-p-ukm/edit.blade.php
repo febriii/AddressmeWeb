@@ -12,14 +12,10 @@
                         <div class="col-8">
                             <h3 class="mb-0">{{ __('Ubah Data UKM') }}</h3>
                         </div>
-                        <div class="col-4 text-right">
-                            <a href="{{ route('list-ukm.index') }}"
-                                class="btn btn-sm btn-primary">{{ __('Kembali') }}</a>
-                        </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('pemilik-ukm.update')}}" autocomplete="off">
+                    <form method="post" action="{{route('pemilik-ukm.update')}}" autocomplete="off" enctype="multipart/form-data">
                         @csrf
                         @method('put')
 
@@ -43,17 +39,32 @@
                                 <label class="form-control-label">{{ __('Nama UKM') }}</label>
                                 <input type="text" name="nama_ukm" class="form-control"
                                     placeholder="{{ __('Nama UKM') }}" value="{{ $data->nama_ukm }}" required autofocus>
-                            </div>
+								@if ($errors->has('nama_ukm'))
+								<span class="invalid-feedback" style="display: block;" role="alert">
+									<strong>{{ $errors->first('nama_ukm') }}</strong>
+								</span>
+                                @endif
+							</div>
                             <div class="form-group">
                                 <label class="form-control-label">{{ __('Nomor Telepon') }}</label>
                                 <input type="text" name="no_telp" class="form-control"
                                     placeholder="{{ __('Nomor Telepon') }}" value="{{ $data->no_telp }}" required
                                     autofocus>
+								@if ($errors->has('no_telp'))
+								<span class="invalid-feedback" style="display: block;" role="alert">
+									<strong>{{ $errors->first('no_telp') }}</strong>
+								</span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">{{ __('Website') }}</label>
                                 <input type="text" name="website" class="form-control" placeholder="{{ __('Website') }}"
                                     value="{{ $data->website }}" required autofocus>
+								@if ($errors->has('website'))
+								<span class="invalid-feedback" style="display: block;" role="alert">
+									<strong>{{ $errors->first('website') }}</strong>
+								</span>
+                                @endif
                             </div>
                             <div class="form-group input-group">
                                 <input type="text" id="search_location" class="form-control" placeholder="Cari Lokasi">
@@ -70,24 +81,56 @@
                                 <label class="form-control-label">{{ __('Alamat') }}</label>
                                 <input type="text" name="alamat" class="form-control search_addr" placeholder="{{ __('Alamat') }}"
                                     value="{{ $data->alamat }}" required autofocus>
+								@if ($errors->has('alamat'))
+								<span class="invalid-feedback" style="display: block;" role="alert">
+									<strong>{{ $errors->first('alamat') }}</strong>
+								</span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">{{ __('Latitude') }}</label>
                                 <input type="text" name="lat" class="form-control search_latitude" placeholder="{{ __('Latitude') }}"
                                     value="{{ $data->lat }}" required autofocus>
+									@if ($errors->has('lat'))
+                                    <span class="invalid-feedback" style="display: block;" role="alert">
+                                        <strong>{{ $errors->first('lat') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label class="form-control-label">{{ __('Longitude') }}</label>
                                 <input type="text" name="lng" class="form-control search_longitude" placeholder="{{ __('Longitude') }}"
                                     value="{{ $data->lng }}" required autofocus>
+								@if ($errors->has('lng'))
+								<span class="invalid-feedback" style="display: block;" role="alert">
+									<strong>{{ $errors->first('lng') }}</strong>
+								</span>
+                                @endif
                             </div>
-                            <div class="form-group">
+							<?php if($data->gambar_ukm != null){?>
+								<img src="/data/{{ $data->gambar_ukm }}" alt="Anda Belum Memiliki Gambar/Logo UKM" width="150">
+								<div class="form-group">
                                 <label class="form-control-label">{{ __('Gambar') }}</label>
-                                <input type="text" name="gambar_ukm" class="form-control"
-                                    placeholder="{{ __('Gambar UKM') }}" value="{{ $data->gambar_ukm }}" required
-                                    autofocus>
+                                <input type="file" name="gambar_ukm" class="form-control"
+                                    placeholder="{{ __('Gambar UKM') }}" value="{{ $data->gambar_ukm }}">
+								@if ($errors->has('gambar_ukm'))
+								<span class="invalid-feedback" style="display: block;" role="alert">
+									<strong>{{ $errors->first('gambar_ukm') }}</strong>
+								</span>
+                                @endif
                             </div>
-
+							<?php }else{?>
+								<div class="form-group">
+                                <label class="form-control-label">{{ __('Gambar') }}</label>
+                                <input type="file" name="gambar_ukm" class="form-control"
+                                    placeholder="{{ __('Gambar UKM') }}" value="{{ $data->gambar_ukm }}">
+								@if ($errors->has('gambar_ukm'))
+								<span class="invalid-feedback" style="display: block;" role="alert">
+									<strong>{{ $errors->first('gambar_ukm') }}</strong>
+								</span>
+                                @endif
+                            </div>
+							<?php }?>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-success mt-4">{{ __('Ubah Data') }}</button>
                             </div>

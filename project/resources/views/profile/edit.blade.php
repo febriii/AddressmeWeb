@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('User Profil')])
+@extends('layouts.app', ['title' => __('Profil Pengguna')])
 
 @section('content')
     @include('users.partials.header', [
@@ -90,8 +90,8 @@
 
                             <div class="pl-lg-4">
                             <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">{{ __('Nama Pemilik') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name', auth()->user()->name) }}" required autofocus>
+                                    <label class="form-control-label" for="input-name">{{ __('Nama') }}</label>
+                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Nama Pengguna') }}" value="{{ old('name', auth()->user()->name) }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -111,7 +111,7 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('alamat') ? ' has-danger' : '' }}">
                                     <label class="form-control-label" for="input-alamat">{{ __('Alamat') }}</label>
-                                    <input type="text" name="alamat" id="input-alamat" class="form-control form-control-alternative{{ $errors->has('alamat') ? ' is-invalid' : '' }}" placeholder="{{ __('Alamat') }}" value="{{ old('alamat', $dataPemilik->alamat) }}" required autofocus>
+                                    <input type="text" name="alamat" id="input-alamat" class="form-control form-control-alternative{{ $errors->has('alamat') ? ' is-invalid' : '' }}" placeholder="{{ __('Alamat Pengguna') }}" value="{{ old('alamat', $dataPemilik->alamat) }}" required autofocus>
 
                                     @if ($errors->has('alamat'))
                                         <span class="invalid-feedback" role="alert">
@@ -120,8 +120,8 @@
                                     @endif
                                 </div>
                                 <div class="form-group{{ $errors->has('no_telp') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-no-telp">{{ __('No Telpon') }}</label>
-                                    <input type="number" name="no_telp" id="input-no-telp" class="form-control form-control-alternative{{ $errors->has('no_telp') ? ' is-invalid' : '' }}" placeholder="{{ __('No Telpon') }}" value="{{ old('no_telp', $dataPemilik->no_telp) }}" required autofocus>
+                                    <label class="form-control-label" for="input-no-telp">{{ __('No Telepon') }}</label>
+                                    <input type="text" name="no_telp" id="input-no-telp" class="form-control form-control-alternative{{ $errors->has('no_telp') ? ' is-invalid' : '' }}" placeholder="{{ __('No Telepon/HP Pengguna') }}" value="{{ old('no_telp', $dataPemilik->no_telp) }}" required autofocus>
 
                                     @if ($errors->has('no_telp'))
                                         <span class="invalid-feedback" role="alert">

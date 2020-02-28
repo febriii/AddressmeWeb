@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+route::post('/login','UserController@loginMobileApi');
+route::post('/registrasi','UserController@registrasiMobileApi');
+route::post('/ubahKataSandi','UserController@ubahKataSandiApi');

@@ -3,6 +3,11 @@
 @section('content')
     @include('layouts.headers.cards')
 
+    {{-- CEK STATUS LOGIN --}}
+    @php
+        $isAdmin = auth()->user()->status;
+    @endphp
+    <?php if($isAdmin != 3){?>
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col">
@@ -76,17 +81,32 @@
                                                     <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </a>
-                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                            <form action="{{ route('list-ukm.destroy', $data->id) }}" method="post">
+                                                    <?php if($data->gambar_ukm != null){?>
+                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                            <form action="{{ route('list-ukm.destroy', $data->id_ukm) }}" method="post">
                                                                 @csrf
                                                                 @method('delete')
                                                                 
-                                                                <!-- <a class="dropdown-item" href="{{ route('list-ukm.edit', $data->id) }}">{{ __('Edit') }}</a> -->
+                                                                <a class="dropdown-item" href="{{ route('list-ukm.edit', $data->id_ukm) }}">{{ __('Ubah') }}</a>
+                                                                <a class="dropdown-item" href="/data/{{ $data->gambar_ukm }}">{{ __('Lihat Gambar') }}</a>
                                                                 <button type="button" class="dropdown-item" onclick="confirm('{{ __("Apakah Anda yakin akan menghapus data ini?") }}') ? this.parentElement.submit() : ''">
                                                                     {{ __('Hapus') }}
                                                                 </button>
                                                             </form>    
                                                     </div>
+                                                    <?php }else{?>
+                                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                                            <form action="{{ route('list-ukm.destroy', $data->id_ukm) }}" method="post">
+                                                                @csrf
+                                                                @method('delete')
+                                                                
+                                                                <a class="dropdown-item" href="{{ route('list-ukm.edit', $data->id_ukm) }}">{{ __('Ubah') }}</a>
+                                                                <button type="button" class="dropdown-item" onclick="confirm('{{ __("Apakah Anda yakin akan menghapus data ini?") }}') ? this.parentElement.submit() : ''">
+                                                                    {{ __('Hapus') }}
+                                                                </button>
+                                                            </form>    
+                                                    </div>
+                                                    <?php }?>
                                                 </div>
                                             </td>
                                         </tr>
@@ -106,4 +126,5 @@
             
         @include('layouts.footers.auth')
     </div>
+    <?php }?>
 @endsection

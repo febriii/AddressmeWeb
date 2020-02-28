@@ -26,7 +26,7 @@ class CreateListKatalogTable extends Migration
             $table->string('gambar_katalog');
             $table->string('user_ubah')->nullable();
             $table->timestamps();
-            $table->string('status');
+            $table->string('status')->default(1);
         });
     }
 

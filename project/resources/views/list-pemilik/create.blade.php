@@ -22,10 +22,10 @@
                             @csrf
                             @method('post')
                             
-                            <h6 class="heading-small text-muted mb-4">{{ __('Informasi Pengguna') }}</h6>
+                            <h6 class="heading-small text-muted mb-4">{{ __('Informasi Pemilik UKM') }}</h6>
                                 <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-name">{{ __('Name') }}</label>
-                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autofocus>
+                                    <label class="form-control-label" for="input-name">{{ __('Nama') }}</label>
+                                    <input type="text" name="name" id="input-name" class="form-control form-control-alternative{{ $errors->has('name') ? ' is-invalid' : '' }}" placeholder="{{ __('Nama Pemilik UKM') }}" value="{{ old('name') }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -45,7 +45,7 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('alamat') ? ' has-danger' : '' }}">
                                     <label class="form-control-label">{{ __('Alamat') }}</label>
-                                    <input class="form-control" placeholder="{{ __('Alamat') }}" type="text" name="alamat" value="{{ old('alamat') }}" required autofocus>
+                                    <input class="form-control" placeholder="{{ __('Alamat Pemilik UKM') }}" type="text" name="alamat" value="{{ old('alamat') }}" required autofocus>
                                     
                                     @if ($errors->has('alamat'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="form-group{{ $errors->has('no_telp') ? ' has-danger' : '' }}">
                                     <label class="form-control-label">{{ __('Nomor Telepon') }}</label>
-                                    <input class="form-control" placeholder="{{ __('Nomor Telepon') }}" type="number" name="no_telp" value="{{ old('no_telp') }}" required autofocus>
+                                    <input class="form-control" placeholder="{{ __('Nomor Telepon/HP Pemilik UKM') }}" type="text" name="no_telp" value="{{ old('no_telp') }}" required autofocus>
                                     
                                     @if ($errors->has('no_telp'))
                                         <span class="invalid-feedback" style="display: block;" role="alert">
@@ -74,8 +74,8 @@
                                     @endif
                                 </div>
                                 <div class="form-group{{ $errors->has('password') ? ' has-danger' : '' }}">
-                                    <label class="form-control-label" for="input-password">{{ __('Password') }}</label>
-                                    <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" value="" required>
+                                    <label class="form-control-label" for="input-password">{{ __('Kata Sandi') }}</label>
+                                    <input type="password" name="password" id="input-password" class="form-control form-control-alternative{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Kata Sandi Pemilik UKM') }}" value="" required>
                                     
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
@@ -84,8 +84,8 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-password-confirmation">{{ __('Confirm Password') }}</label>
-                                    <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Confirm Password') }}" value="" required>
+                                    <label class="form-control-label" for="input-password-confirmation">{{ __('Konfirmasi Kata Sandi') }}</label>
+                                    <input type="password" name="password_confirmation" id="input-password-confirmation" class="form-control form-control-alternative" placeholder="{{ __('Konfirmasi Kata Sandi Pemilik UKM') }}" value="" required>
                                 </div>
 
                                 <div class="text-center">
